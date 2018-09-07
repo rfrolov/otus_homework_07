@@ -1,0 +1,4 @@
+<map id="IPrinter" name="IPrinter">
+<area shape="rect" id="node2" href="$structPrintConsole.html" title="Класс печати пула команд в консоль. " alt="" coords="5,80,101,107"/>
+<area shape="rect" id="node3" href="$structPrintFile.html" title="Класс печати пула команд в файл. " alt="" coords="126,80,196,107"/>
+</map>
