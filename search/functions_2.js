@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['end',['end',['../structCmd.html#a93e01e4ffd39a08754afc8438fdd1f47',1,'Cmd']]]
+  ['detach_5fprinter',['detach_printer',['../structCmd.html#aa692627d4ab5727ca082f83d6b0da506',1,'Cmd']]]
 ];

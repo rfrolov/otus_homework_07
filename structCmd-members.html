@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Определения типов</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,8 +89,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <p>Полный список членов класса <a class="el" href="structCmd.html">Cmd</a>, включая наследуемые из базового класса</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="structCmd.html#a9fe0529b30cb3a293ce171fc2cf7cfc1">add_cmd</a>(const std::string &amp;cmd)</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="structCmd.html#abe973646e3456ff563893035b01f62fc">Cmd</a>(const std::size_t block_size)</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structCmd.html#a648d663e6b59c184b737edd6fc5f189e">attach_printer</a>(const printer_t &amp;printer)</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structCmd.html#abe973646e3456ff563893035b01f62fc">Cmd</a>(const std::size_t block_size)</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structCmd.html#aa692627d4ab5727ca082f83d6b0da506">detach_printer</a>(const printer_t &amp;printer)</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="structCmd.html#a93e01e4ffd39a08754afc8438fdd1f47">end</a>()</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structCmd.html#a315dcc969bdbc78b784a7780081025da">printer_t</a> typedef</td><td class="entry"><a class="el" href="structCmd.html">Cmd</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
