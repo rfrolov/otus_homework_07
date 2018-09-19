@@ -29,9 +29,3 @@ TEST(print, PrintFile) {
 
     EXPECT_EQ(str, "Bulk: first, second, third");
 }
-
-
-int main(int argc, char *argv[]) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

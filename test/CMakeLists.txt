@@ -13,6 +13,6 @@ set_target_properties(
         COMPILE_OPTIONS -Wpedantic -Wall -Wextra
 )
 
-target_link_libraries(tests gtest)
+target_link_libraries(tests gtest gtest_main)
 
 enable_testing()
