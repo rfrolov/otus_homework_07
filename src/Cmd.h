@@ -2,23 +2,37 @@
 
 #include <cassert>
 #include <memory>
+#include <algorithm>
 #include "print.h"
 
 struct Cmd {
+    using printer_t = std::shared_ptr<IPrinter>;
+
     /**
      * Конструктор.
      * @param block_size Размер блока.
      */
     explicit Cmd(const std::size_t block_size) : m_block_size{block_size} {
         assert(block_size != 0);
-
-        m_printers.emplace_back(std::make_shared<PrintConsole>());
-        m_printers.emplace_back(std::make_shared<PrintFile>());
     }
 
-    /// Выводит оставшиеся команды.
-    void end() {
-        print_pool();
+    /**
+     * Добавить принтер.
+     * @param printer Указатель на принтер.
+     */
+    void attach_printer(const printer_t &printer) {
+        m_printers.emplace_back(printer);
+    }
+
+    /**
+     * Удалить принтер
+     * @param printer Указатель на принтер.
+     */
+    void detach_printer(const printer_t &printer) {
+        auto it = std::find(m_printers.cbegin(), m_printers.cend(), printer);
+        if (it != m_printers.cend()) {
+            m_printers.erase(it);
+        }
     }
 
     /**
@@ -45,6 +59,11 @@ struct Cmd {
         }
     }
 
+    /// Выводит оставшиеся команды.
+    void end() {
+        print_pool();
+    }
+
 private:
     void print_pool() {
         if (m_cmd_pool.empty() || m_braces_num) {
@@ -65,8 +84,8 @@ private:
     }
 
 private:
-    size_t                                 m_block_size{};
-    size_t                                 m_braces_num{};
-    std::vector<std::string>               m_cmd_pool{};
-    std::vector<std::shared_ptr<IPrinter>> m_printers{};
+    size_t m_block_size{};
+    size_t m_braces_num{};
+    std::vector<std::string> m_cmd_pool{};
+    std::vector<printer_t> m_printers{};
 };

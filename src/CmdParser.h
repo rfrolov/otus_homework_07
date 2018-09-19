@@ -12,6 +12,9 @@ struct CmdParser {
      */
     explicit CmdParser(const std::size_t block_size, std::istream &is = std::cin) : m_is{&is}, m_cmd{block_size} {
         assert(m_is != nullptr);
+
+        m_cmd.attach_printer(std::make_shared<PrintConsole>());
+        m_cmd.attach_printer(std::make_shared<PrintFile>());
     }
 
     /// Обработать поток ввода.
