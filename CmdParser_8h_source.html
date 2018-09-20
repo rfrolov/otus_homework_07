@@ -93,28 +93,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Cmd_8h.html">Cmd.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="structCmdParser.html">    7</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structCmdParser.html">CmdParser</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structCmdParser.html#ac5f585b5f4109226db8b86e9bfa76d9f">   13</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structCmdParser.html#ac5f585b5f4109226db8b86e9bfa76d9f">CmdParser</a>(<span class="keyword">const</span> std::size_t block_size, std::istream &amp;is = std::cin) : m_is{&amp;is}, m_cmd{block_size} {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        assert(m_is != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a648d663e6b59c184b737edd6fc5f189e">attach_printer</a>(std::make_shared&lt;PrintConsole&gt;());</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a648d663e6b59c184b737edd6fc5f189e">attach_printer</a>(std::make_shared&lt;PrintFile&gt;());</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structCmdParser.html#ac5f585b5f4109226db8b86e9bfa76d9f">   13</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structCmdParser.html#ac5f585b5f4109226db8b86e9bfa76d9f">CmdParser</a>(<span class="keyword">const</span> std::size_t block_size, std::istream &amp;is = std::cin) :</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            m_is{&amp;is}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            , m_cmd{block_size}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            , m_print_console{std::make_shared&lt;PrintConsole&gt;()}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            , m_print_file{std::make_shared&lt;PrintFile&gt;()} {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        assert(m_is != <span class="keyword">nullptr</span>);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">process</a>() {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">for</span> (std::string cmd; getline(*m_is, cmd);) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            m_cmd.<a class="code" href="structCmd.html#a9fe0529b30cb3a293ce171fc2cf7cfc1">add_cmd</a>(cmd);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a93e01e4ffd39a08754afc8438fdd1f47">end</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::istream *m_is{};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="structCmd.html">Cmd</a>          m_cmd;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a648d663e6b59c184b737edd6fc5f189e">attach_printer</a>(m_print_console);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a648d663e6b59c184b737edd6fc5f189e">attach_printer</a>(m_print_file);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structCmdParser.html#a6b7e3267e702350917314ae9730fcb3c">   25</a></span>&#160;    <a class="code" href="structCmdParser.html#a6b7e3267e702350917314ae9730fcb3c">~CmdParser</a>() {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        m_cmd.<a class="code" href="structCmd.html#aa692627d4ab5727ca082f83d6b0da506">detach_printer</a>(std::make_shared&lt;PrintConsole&gt;());</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        m_cmd.<a class="code" href="structCmd.html#aa692627d4ab5727ca082f83d6b0da506">detach_printer</a>(std::make_shared&lt;PrintFile&gt;());</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">   31</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">process</a>() {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">for</span> (std::string cmd; getline(*m_is, cmd);) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            m_cmd.<a class="code" href="structCmd.html#a9fe0529b30cb3a293ce171fc2cf7cfc1">add_cmd</a>(cmd);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        m_cmd.<a class="code" href="structCmd.html#a93e01e4ffd39a08754afc8438fdd1f47">end</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::istream                  *m_is{};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="structCmd.html">Cmd</a>                           m_cmd;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::shared_ptr&lt;PrintConsole&gt; m_print_console{};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    std::shared_ptr&lt;PrintFile&gt;    m_print_file{};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="ttc" id="structCmd_html_aa692627d4ab5727ca082f83d6b0da506"><div class="ttname"><a href="structCmd.html#aa692627d4ab5727ca082f83d6b0da506">Cmd::detach_printer</a></div><div class="ttdeci">void detach_printer(const printer_t &amp;printer)</div><div class="ttdef"><b>Definition:</b> Cmd.h:31</div></div>
 <div class="ttc" id="structCmd_html"><div class="ttname"><a href="structCmd.html">Cmd</a></div><div class="ttdef"><b>Definition:</b> Cmd.h:8</div></div>
 <div class="ttc" id="structCmd_html_a9fe0529b30cb3a293ce171fc2cf7cfc1"><div class="ttname"><a href="structCmd.html#a9fe0529b30cb3a293ce171fc2cf7cfc1">Cmd::add_cmd</a></div><div class="ttdeci">void add_cmd(const std::string &amp;cmd)</div><div class="ttdef"><b>Definition:</b> Cmd.h:42</div></div>
 <div class="ttc" id="structCmdParser_html_ac5f585b5f4109226db8b86e9bfa76d9f"><div class="ttname"><a href="structCmdParser.html#ac5f585b5f4109226db8b86e9bfa76d9f">CmdParser::CmdParser</a></div><div class="ttdeci">CmdParser(const std::size_t block_size, std::istream &amp;is=std::cin)</div><div class="ttdef"><b>Definition:</b> CmdParser.h:13</div></div>
-<div class="ttc" id="structCmdParser_html_a97c9f5c2d5d48a462e9b68ee9863e9eb"><div class="ttname"><a href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">CmdParser::process</a></div><div class="ttdeci">void process()</div><div class="ttdoc">Обработать поток ввода. </div><div class="ttdef"><b>Definition:</b> CmdParser.h:21</div></div>
+<div class="ttc" id="structCmdParser_html_a97c9f5c2d5d48a462e9b68ee9863e9eb"><div class="ttname"><a href="structCmdParser.html#a97c9f5c2d5d48a462e9b68ee9863e9eb">CmdParser::process</a></div><div class="ttdeci">void process()</div><div class="ttdoc">Обработать поток ввода. </div><div class="ttdef"><b>Definition:</b> CmdParser.h:31</div></div>
+<div class="ttc" id="structCmdParser_html_a6b7e3267e702350917314ae9730fcb3c"><div class="ttname"><a href="structCmdParser.html#a6b7e3267e702350917314ae9730fcb3c">CmdParser::~CmdParser</a></div><div class="ttdeci">~CmdParser()</div><div class="ttdoc">Деструктор. </div><div class="ttdef"><b>Definition:</b> CmdParser.h:25</div></div>
 <div class="ttc" id="structCmdParser_html"><div class="ttname"><a href="structCmdParser.html">CmdParser</a></div><div class="ttdoc">Класс персера команд. </div><div class="ttdef"><b>Definition:</b> CmdParser.h:7</div></div>
 <div class="ttc" id="structCmd_html_a93e01e4ffd39a08754afc8438fdd1f47"><div class="ttname"><a href="structCmd.html#a93e01e4ffd39a08754afc8438fdd1f47">Cmd::end</a></div><div class="ttdeci">void end()</div><div class="ttdoc">Выводит оставшиеся команды. </div><div class="ttdef"><b>Definition:</b> Cmd.h:63</div></div>
 <div class="ttc" id="Cmd_8h_html"><div class="ttname"><a href="Cmd_8h.html">Cmd.h</a></div></div>
