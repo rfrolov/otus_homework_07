@@ -10,7 +10,6 @@ set_target_properties(
         tests PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
-        COMPILE_OPTIONS -Wpedantic -Wall -Wextra
 )
 
 target_link_libraries(tests gtest gtest_main)

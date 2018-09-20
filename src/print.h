@@ -6,6 +6,9 @@
 
 /// Интерфейс принтера.
 struct IPrinter {
+    /// Деструктор.
+    virtual ~IPrinter() = default;
+
     /**
      * Выводит пулл команд.
      * @param cmd_pool Пулл команд.
@@ -27,6 +30,9 @@ struct PrintConsole : public IPrinter {
      * @param os Ссылка на поток вывода.
      */
     explicit PrintConsole(std::ostream &os = std::cout) : m_os{&os} {}
+
+    /// Деструктор.
+    ~PrintConsole() override = default;
 
     /**
      * Выводит пулл команд.
@@ -54,7 +60,8 @@ private:
 /// Класс печати пула команд в файл.
 struct PrintFile : public IPrinter {
 
-    ~PrintFile() {
+    /// Деструктор.
+    ~PrintFile() override {
         fs_.close();
     }
 
@@ -78,7 +85,7 @@ struct PrintFile : public IPrinter {
      */
     void set_first_cmd_time(std::time_t time) override {
         std::string file_name = "bulk" + std::to_string(time) + ".log";
-        if (fs_.is_open()) { return; }
+        if (fs_.is_open()) { fs_.close(); }
         fs_.open(file_name, std::ios::out);
     }
 

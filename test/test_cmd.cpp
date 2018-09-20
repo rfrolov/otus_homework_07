@@ -1,7 +1,11 @@
+#include <chrono>
 #include "gtest/gtest.h"
 #include "Cmd.h"
 
 struct TestPrinter : public IPrinter {
+
+    ~TestPrinter() override = default;
+
     void print_cmd_pool(const std::vector<std::string> &cmd_pool) override {
         m_cmd_pool = cmd_pool;
     }
@@ -45,6 +49,14 @@ TEST(cmd, detach) {
     EXPECT_EQ(printer->get_pool(), std::vector<std::string>{});
 }
 
+TEST(cmd, first_time_true) {
+    Cmd cmd{1};
+    auto printer = std::make_shared<TestPrinter>();
+    cmd.attach_printer(printer);
+    cmd.add_cmd("test");
+    EXPECT_NE(printer->get_first_time(), std::time_t{});
+}
+
 TEST(cmd, first_time_false) {
     Cmd cmd{1};
     auto printer = std::make_shared<TestPrinter>();
@@ -52,12 +64,27 @@ TEST(cmd, first_time_false) {
     EXPECT_EQ(printer->get_first_time(), std::time_t{});
 }
 
-TEST(cmd, first_time_true) {
+TEST(cmd, second_time_true) {
     Cmd cmd{1};
     auto printer = std::make_shared<TestPrinter>();
     cmd.attach_printer(printer);
-    cmd.add_cmd("test");
-    EXPECT_NE(printer->get_first_time(), std::time_t{});
+    cmd.add_cmd("test_1");
+    std::time_t first_time = printer->get_first_time();
+
+    for(std::time_t time = std::time(nullptr); std::time(nullptr) == time;);
+
+    cmd.add_cmd("test_2");
+    EXPECT_NE(printer->get_first_time(), first_time);
+}
+
+TEST(cmd, second_time_false) {
+    Cmd cmd{3};
+    auto printer = std::make_shared<TestPrinter>();
+    cmd.attach_printer(printer);
+    cmd.add_cmd("test_1");
+    std::time_t first_time = printer->get_first_time();
+    cmd.add_cmd("test_2");
+    EXPECT_EQ(printer->get_first_time(), first_time);
 }
 
 TEST(cmd, add_cmd_true_block_size) {
