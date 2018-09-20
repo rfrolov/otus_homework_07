@@ -23,8 +23,8 @@ struct CmdParser {
 
     /// Деструктор.
     ~CmdParser() {
-        m_cmd.detach_printer(std::make_shared<PrintConsole>());
-        m_cmd.detach_printer(std::make_shared<PrintFile>());
+        m_cmd.detach_printer(m_print_file);
+        m_cmd.detach_printer(m_print_console);
     }
 
     /// Обработать поток ввода.
